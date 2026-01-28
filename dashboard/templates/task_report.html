@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Task Report</h3>
+
+<table border="1" style="margin-top: 3em;">
+    <tr style="padding: 1em;">
+        <th style="padding: 1em;">Title</th>
+        <th style="padding: 1em;">Assigned To</th>
+        <th style="padding: 1em;">Status</th>
+        <th style="padding: 1em;">Report</th>
+        <th style="padding: 1em;">Worked Hour</th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+        <td style="padding: 1em;">{{ task.title }}</td>
+        <td style="padding: 1em;">{{ task.assigned_to }}</td>
+        <td style="padding: 1em;">{{ task.status }}</td>
+        <td style="padding: 1em;">{{ task.report }}</td>
+        <td style="padding: 1em;">{{ task.worked_hour }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5" style="padding: 1em;">No task found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div>
+<h3>Create User</h3>
+
+<form action='create_user' method="post" style="margin-top: 1em;">
+    {% csrf_token %}
+    <div>
+        <label>Username</label><br>
+        <input type="text" name="username" required style="width: 15em; height: 3em; border-radius: 3em; padding-inline: 1em;">
+    </div>
+    <div>
+        <label>Password</label><br>
+        <input type="password" name="password" required style="width: 15em; height: 3em; border-radius: 3em; padding-inline: 1em;">
+    </div>
+    <label>Assigned To</label><br>
+    <select name="assigned_to" required style="width: 15em; height: 3em; border-radius: 3em; padding-inline: 1em;">
+        <option value="">Select</option>
+        {% for admin in admins %}
+            <option value="{{ admin.id }}">{{ admin.username }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <button type="submit" style="margin: 1em; padding: 2em 5em; border-radius: 3em;">Create User</button>
+</form>
+<a href="{% url 'users' %}">Back to User</a>
+</div>
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Admins</h3>
+
+<a href="{% url 'create_admin' %}">Create Admin</a>
+
+<table border="1" style="margin-top: 3em;">
+    <tr style="padding: 1em;">
+        <th style="padding: 1em;">Username</th>
+        <th style="padding: 1em;">Action</th>
+    </tr>
+    {% for admin in admins %}
+    <tr>
+        <td style="padding: 1em;">{{ admin.username }}</td>
+        <td style="padding: 1em;">
+            <a href="{% url 'delete_admin' admin.id %}">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2" >No admins found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}

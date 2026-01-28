@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>User</h3>
+
+{% if request.user.role == 'superadmin' %}
+<a href="{% url 'create_user' %}">Create User</a>
+{% endif %}
+
+<table border="1" style="margin-top: 3em;">
+    <tr style="padding: 1em;">
+        <th style="padding: 1em;">Username</th>
+        {% if request.user.role == 'superadmin' %}
+        <th style="padding: 1em;">Assigned To</th>
+        <th style="padding: 1em;">Action</th>
+        {% endif %}
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td style="padding: 1em;">{{ user.username }}</td>
+        {% if request.user.role == 'superadmin' %}
+        <td style="padding: 1em;">{{ user.assigned_to }}</td>
+        <td style="padding: 1em;">
+            <a href="{% url 'delete_user' user.id %}">Delete</a>
+        </td>
+        {% endif %}
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2" style="padding: 1em;">No user found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}

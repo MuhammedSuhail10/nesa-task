@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div>
+<h3>Create Admin</h3>
+
+<form action='create_admin' method="post" style="margin-top: 1em;">
+    {% csrf_token %}
+    <div>
+        <label>Username</label><br>
+        <input type="text" name="username" required style="width: 15em; height: 3em; border-radius: 3em; padding-inline: 1em;">
+    </div>
+    <div>
+        <label>Password</label><br>
+        <input type="password" name="password" required style="width: 15em; height: 3em; border-radius: 3em; padding-inline: 1em;">
+    </div>
+    <br>
+    <button type="submit" style="margin: 1em; padding: 2em 5em; border-radius: 3em;">Create Admin</button>
+</form>
+<a href="{% url 'admins' %}">Back to Admins</a>
+</div>
+{% endblock content %}
