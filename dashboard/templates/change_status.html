@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div>
+<h3>Change Status</h3>
+<form action='{% url "change_status" id %}' method="post" style="margin-top: 1em;">
+    {% csrf_token %}
+    <div>
+        <label>Status</label><br>
+        <select name="status" required style="width: 15em; height: 3em; border-radius: 3em; padding-inline: 1em;">
+            <option value="">Select</option>
+            <option value="progress">In Progress</option>
+            <option value="completed">Completed</option>
+        </select>
+    </div>
+    <div>
+        <label>Report</label><br>
+        <textarea name="report" style="width: 15em; height: 7em; border-radius: 3em; padding: 2em;"></textarea>
+    </div>
+    <div>
+        <label>Worked Hour</label><br>
+        <input type="number" name="worked_hour" style="width: 15em; height: 3em; border-radius: 3em; padding-inline: 1em;">
+    </div>
+    <br>
+    <button type="submit" style="margin: 1em; padding: 2em 5em; border-radius: 3em;">Change Status</button>
+</form>
+<a href="{% url 'tasks' %}">Back to Task</a>
+</div>
+{% endblock content %}

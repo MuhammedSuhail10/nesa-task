@@ -3,9 +3,9 @@
 
 <h3>Task</h3>
 
-{% comment %} {% if request.user.role == 'admin' %} {% endcomment %}
+{% if request.user.role != 'user' %}
 <a href="{% url 'create_task' %}">Create Task</a>
-{% comment %} {% endif %} {% endcomment %}
+{% endif %}
 
 <table border="1" style="margin-top: 3em;">
     <tr style="padding: 1em;">
@@ -14,7 +14,7 @@
         <th style="padding: 1em;">Assigned To</th>
         <th style="padding: 1em;">Due Date</th>
         <th style="padding: 1em;">Status</th>
-        {% if request.user.role == 'admin' %}
+        {% if request.user.role == 'admin' or request.user.role == 'user' %}
         <th style="padding: 1em;">Action</th>
         {% endif %}
     </tr>
@@ -28,6 +28,11 @@
         {% if request.user.role == 'admin' %}
         <td style="padding: 1em;">
             <a href="{% url 'delete_task' task.id %}">Delete</a>
+        </td>
+        {% endif %}
+        {% if request.user.role == 'user' %}
+        <td style="padding: 1em;">
+            <a href="{% url 'change_status' task.id %}">Change Status</a>
         </td>
         {% endif %}
     </tr>

@@ -10,7 +10,7 @@ def login_(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        if user is not None and user.role != 'user':
+        if user is not None:
             login(request, user)
             return redirect('users')
         return redirect('login')
@@ -107,6 +107,19 @@ def delete_task(request, id):
         return redirect('tasks')
     Task.objects.get(id=id).delete()
     return redirect('tasks')
+
+@login_required(login_url='login')
+def change_status(request, id):
+    task = Task.objects.get(id=id)
+    if request.method == 'POST':
+        status = request.POST.get('status')
+        if status == 'completed':
+            task.report = request.POST.get('report')
+            task.worked_hour = request.POST.get('worked_hour')
+        task.status = status
+        task.save()
+        return redirect('tasks')
+    return render(request, 'change_status.html', {"id": id})
 
 @login_required(login_url='login')
 def task_reports(request):
