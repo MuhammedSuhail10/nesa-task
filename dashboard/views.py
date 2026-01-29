@@ -88,15 +88,14 @@ def tasks(request):
 def create_task(request):
     admin = request.user
     admins = User.objects.filter(role='user')
-    if admin.role != 'admin':
-        return redirect('tasks')
     if request.method == 'POST':
         title = request.POST.get('title')
         description = request.POST.get('description')
         assigned_to = request.POST.get('assigned_to')
         due_date = request.POST.get('due_date')
         user = User.objects.get(id=assigned_to)
-        task = Task.objects.create(title=title, description=description, due_date=due_date, assigned_to=user, created_by=admin)
+        created_by = admin if admin.role == 'admin' else user.assigned_to
+        task = Task.objects.create(title=title, description=description, due_date=due_date, assigned_to=user, created_by=created_by)
         task.save()
         return redirect('tasks')
     return render(request, 'create_task.html', {"admins": admins})
