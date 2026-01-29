@@ -81,6 +81,8 @@ def tasks(request):
     q = Q(status__in=['pending', 'progress'])
     if user.role == 'admin':
         q &= Q(created_by=user)
+    elif user.role == 'user':
+        q &= Q(assigned_to=user)
     tasks = Task.objects.filter(q)
     return render(request, 'task.html', {"tasks": tasks})
 
